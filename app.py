@@ -43,4 +43,12 @@ def generate_summary_and_video(url):
         return f"{iframe}<br><br>Những ý chính trong video:<br><br>{summary_html}"
     except IndexError:
         return f"**Summary:**\n{summary}\n\nInvalid YouTube URL for video display."
-      
+
+
+st.title("Chào mừng đến với hệ thống tóm tắt của Minne >.< ")
+tokenizer, model = get_model()
+input_text = st.text_area("Enter your URL:")
+    
+if st.button("Generate"):
+    generate_summary_and_video(url)
+    st.text_area("Kết quả tóm tắt:", value=output_text, height=400)
