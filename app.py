@@ -11,8 +11,10 @@ def get_model(cp):
     return tokenizer, model
 
 tokenizer, model = get_model(cp_aug)
+
 restore_model = PunctuationModel()
 
+@st.cache
 def execute_func(url, model, tokenizer, punc_model):
     trans, sub = get_subtitles(url)
     sub = restore_punctuation(sub, punc_model)
@@ -29,6 +31,7 @@ def execute_func(url, model, tokenizer, punc_model):
     re = display(suma)
     return re
 
+@st.cache
 def generate_summary(url):
     results = execute_func(url, model, tokenizer, restore_model)
     summary = "\n".join(results)
@@ -44,11 +47,11 @@ def generate_summary_and_video(url):
     except IndexError:
         return f"**Summary:**\n{summary}\n\nInvalid YouTube URL for video display."
 
-
 st.title("Chào mừng đến với hệ thống tóm tắt của Minne >.< ")
-tokenizer, model = get_model()
+
 input_text = st.text_area("Enter your URL:")
-    
+
 if st.button("Generate"):
-    generate_summary_and_video(url)
+    output_text = generate_summary_and_video(input_text)
     st.text_area("Kết quả tóm tắt:", value=output_text, height=400)
+    
