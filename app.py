@@ -1,5 +1,5 @@
 from util import *
-import gradio as gr
+import streamlit as st
 from deepmultilingualpunctuation import PunctuationModel
 
 cp_aug = 'minnehwg/finetune-newwiki-summarization-ver-augmented'
